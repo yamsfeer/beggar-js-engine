@@ -1,0 +1,28 @@
+{
+  "name": "beggar-js-engine",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha src/test/**/*.js",
+    "coverage": "nyc npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melogra/beggar-js-engine.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/melogra/beggar-js-engine/issues"
+  },
+  "homepage": "https://github.com/melogra/beggar-js-engine#readme",
+  "dependencies": {
+    "linkedlist": "^1.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.1.3",
+    "nyc": "^15.1.0"
+  }
+}
