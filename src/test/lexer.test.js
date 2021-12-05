@@ -20,7 +20,6 @@ describe('lexer', () => {
     `
     let lexer = new Lexer()
     let tokens = lexer.analyse(arrayToGenerator(source))
-    console.log(tokens.map(token => token.value).join(','));
     const expecteds = [
       ['if', TokenType.KEYWORD], ['(', TokenType.BRACKET],
       ['a', TokenType.VARIABLE], ['==', TokenType.OPERATOR],

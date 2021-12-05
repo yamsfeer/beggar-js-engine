@@ -2,8 +2,13 @@ const TokenType = require('./tokenType')
 const AlphaHelper = require('../common/alphaHelper')
 const LexicalException = require('./lexicalException')
 
+const avaliableType = new Set([
+  'int', 'float', 'string', 'bool', 'func'
+])
+
 const keywords = new Set([
-  'var', 'if', 'else', 'for', 'while', 'break', 'func', 'return'
+  'var', 'if', 'else', 'for', 'while', 'break', 'func', 'return',
+  ...avaliableType
 ])
 
 class Token {
@@ -27,6 +32,10 @@ class Token {
   isScalar() {
     return this._type === TokenType.INTEGER || this._type === TokenType.FLOAT ||
       this._type === TokenType.BOOLEAN || this._type === TokenType.STRING
+  }
+
+  isType() {
+    return avaliableType.has(this._value)
   }
 
   toString() {

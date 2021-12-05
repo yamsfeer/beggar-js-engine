@@ -3,6 +3,8 @@ const PeekIterator = require('../common/peekIterator')
 const LexicalException = require('./lexicalException')
 const Token = require('./token')
 const tokenType = require('./tokenType')
+const fs = require('fs')
+const arrayToGenerator = require('../common/arrayToGenerator')
 
 class Lexer {
   constructor() {}
@@ -14,8 +16,6 @@ class Lexer {
     while (it.hasNext()) {
       let c = it.next()
       let lookahead = it.peek()
-
-      if (c === '1') debugger
 
       if (c === endToken) break
       if (c === ' ' || c === '\n') continue
@@ -79,6 +79,14 @@ class Lexer {
     } // end while
 
     return tokens
+  }
+
+  static fromFile(filePath) {
+    const fileBuffer = fs.readFileSync(filePath)
+    const source = fileBuffer.toString()
+    const lexer = new Lexer()
+
+    return lexer.analyse(arrayToGenerator(`${source}\0`))
   }
 }
 
