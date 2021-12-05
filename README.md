@@ -14,11 +14,11 @@
 
 ### 操作符状态机
 
-<img src="/Users/yams/Documents/draw.io文件/前端训练营/javascript token 状态机.jpg" style="zoom:85%;" />
+<img src="https://tva1.sinaimg.cn/large/008i3skNgy1gx3fqmxa60j30g60mjq4g.jpg" style="zoom:85%;" />
 
 ### Number 状态机
 
-<img src="/Users/yams/Documents/draw.io文件/前端训练营/javascript number 状态机.jpg" style="zoom:80%;" />
+<img src="https://tva1.sinaimg.cn/large/008i3skNgy1gx3fqqs0uuj30gw0a774r.jpg" style="zoom:80%;" />
 
 ## 语法分析
 
@@ -26,7 +26,7 @@
 
 抽象语法树的节点主要有 因子（Factor）、表达式（Expr）、语句（Stmt）三大类型。其中 Factor 有变量和字面量（直接量），语句也有 if 语句、for 语句等。它们的关系如下图：
 
-<img src="/Users/yams/Documents/draw.io文件/前端训练营/AST 节点继承关系.jpg" style="zoom:80%;" />
+<img src="https://tva1.sinaimg.cn/large/008i3skNgy1gx3fqrjbemj30f807xjro.jpg" style="zoom:80%;" />
 
 ### 推导关系
 
@@ -38,7 +38,7 @@ Block \to \{ Stmts \}
 $$
 解析过程中的调用关系：
 
-![](/Users/yams/Documents/draw.io文件/前端训练营/抽象语法树构建代码调用关系.jpg)
+![](https://tva1.sinaimg.cn/large/008i3skNgy1gx3fqpvm4wj30gs06ymxf.jpg)
 
 #### 声明语句
 
@@ -46,7 +46,7 @@ $$
 DeclareStmt \to var \ Variable = Expr
 $$
 
-![](/Users/yams/Documents/draw.io文件/前端训练营/DeclStmt 调用关系.jpg)
+![](https://tva1.sinaimg.cn/large/008i3skNgy1gx3fqsg90dj30jl011wef.jpg)
 
 #### 赋值语句
 
@@ -54,7 +54,7 @@ $$
 AssignStmt \to Variable = Expr
 $$
 
-![](/Users/yams/Documents/draw.io文件/前端训练营/AssignStmt调用关系.jpg)
+![](https://tva1.sinaimg.cn/large/008i3skNgy1gx3fqop3rwj30fj011gli.jpg)
 
 #### if 语句
 
@@ -63,7 +63,7 @@ IfStmt \to if(Expr) \ Block \ Tail \\
 Tail \to else \ Block \ | \ else \ IfStmt \ | \ \epsilon
 $$
 
-![](/Users/yams/Documents/draw.io文件/前端训练营/IfStmt调用关系.jpg)
+![](https://tva1.sinaimg.cn/large/008i3skNgy1gx3fqnu6i6j30om03e3ym.jpg)
 
 #### function
 
