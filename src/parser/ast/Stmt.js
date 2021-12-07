@@ -34,6 +34,8 @@ Stmt.parse = it => {
     return IfStmt.parse(it)
   } else if (token.value === 'func') {
     return FuncDeclStmt.parse(it)
+  } else {
+    return Expr.parse(it)
   }
   return null
 }

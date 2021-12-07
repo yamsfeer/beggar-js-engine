@@ -19,4 +19,6 @@ module.exports = {
   // func
   FUNC_DECL_STMT: new Enum('FUNC_DECL_STMT', Symbol('FUNC_DECL_STMT')),
   FUNC_ARGS: new Enum('FUNC_ARGS', Symbol('FUNC_ARGS')),
+  CALL_EXPR: new Enum('CALL_EXPR', Symbol('CALL_EXPR')),
+  RETURN_STMT: new Enum('RETURN_STMT', Symbol('RETURN_STMT')),
 }

@@ -1,3 +1,5 @@
+const ASTNodeType = require('./ASTNodeType')
+
 class ASTNode {
   constructor(type, label) {
     this.children = []
@@ -22,6 +24,11 @@ class ASTNode {
   }
   setLexeme(lexeme) {
     this.lexeme = lexeme
+  }
+
+  isValueType() {
+    return this.type === ASTNodeType.VARIABLE ||
+      this.type === ASTNodeType.SCALAR
   }
 }
 

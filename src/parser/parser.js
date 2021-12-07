@@ -1,6 +1,9 @@
-const Expr = require('./ast/Expr')
-const Scalar = require('./ast/Scalar')
+const { Stmt, Expr, Scalar} = require('./ast/index')
+const Lexer = require('../lexer/lexer')
 const ASTNodeType = require('./ast/ASTNodeType')
+const arrayToGenerator = require('../common/arrayToGenerator')
+const PeekTokenIterator = require('./utils/peekTokenIterator')
+const ASTNode = require('./ast/ASTNode')
 
 class Parser {
   // Expr -> digit + Expr | digit
@@ -21,6 +24,18 @@ class Parser {
     expr.addChild(scalar).addChild(Parser.smpleParse(it))
 
     return expr
+  }
+
+  static parse(source) {
+    const lexer = new Lexer()
+    const tokens = lexer.analyse(arrayToGenerator(source))
+    const tokenIt = new PeekTokenIterator(arrayToGenerator(tokens))
+    const ast = Stmt.parse(tokenIt)
+
+    const program = new ASTNode()
+    program.addChild(ast)
+
+    return program
   }
 }
 

@@ -190,3 +190,145 @@ E_k' \to op_k \ E_{k+1} \ E_k' \ | \ \epsilon
 E_t \to Factor \ E_t' \\
 E_t' \to op_t \ Factor \ E_t' \ | \ \epsilon
 $$
+
+## 语法制导翻译
+
+### 三地址代码
+
+```javascript
+if (a + b > 10) {
+  c = 100
+} else {
+  c = 1000
+}
+```
+
+```assembly
+p0 = a + b
+p1 = p0 > 10
+
+IF p1 else L0
+c = 100
+GOTO L1
+L0:
+c = 1000
+L1:
+...
+```
+
+```javascript
+for (var i = 0; i < 10; i++) {
+  sun += i
+}
+```
+
+```assembly
+i = 0
+L0:
+p0 = i < 10
+
+IF p0 ELSE L1
+sum = sum + i
+i = i + 1
+p0 = i < 10
+GOTO L0
+
+L1:
+...
+```
+
+```javascript
+func foo(a, b, c) {
+  return x
+}
+foo(1, 2, 3)
+```
+
+```assembly
+FOO:
+RETURN x
+
+PUSH 1
+PUSH 2
+PUSH 3
+CALL FOO
+```
+
+### 语法制导定义（SDD）
+
+语法制导定义（*Syntax Directed Definition，SDD*），定义 *AST* 如何被翻译。
+
+*SDD* 通常包含
+
+* 文法：上下文无关文法 *G*
+* 规则：文法中的每条产生式
+* 属性：定义每条产生式的如何计算
+
+举个例子，四则运算的 *SDD*：
+
+文法：
+
+```
+E -> E + T
+	 | T
+T -> T * F
+   | F
+F -> 0|1|2|3|4|5|6|7|8|9
+```
+
+规则及属性：
+
+| 规则           | 属性                     |
+| -------------- | ------------------------ |
+| $E \to E' + T$ | $E.val = E'.val + T.val$ |
+| $E \to T$      | $E.val = T.val$          |
+| $T \to T' * F$ | $T.val = T'.val * F.val$ |
+| $T \to F$      | $T.val = F.val$          |
+
+
+
+| 规则           | 属性                                                         |
+| -------------- | ------------------------------------------------------------ |
+| $E \to E' + T$ | E.var = assign()<br />pro.add('var E.var = E'.var + T.var')  |
+| $E \to T$      | E.var = assign()<br />program.add('var E.var = T.var')`      |
+| $T \to T' * F$ | T.var = assign()<br />program.add('var T.var = T'.var * F.val) |
+| $T \to F$      | T.var = assign()<br />program.add('var T.var = F.val')       |
+
+*（assign() 表示在符号表中插入一个变量）*
+
+### 词法作用域
+
+一个符号的可见范围称为这个符号的**作用域**。
+
+词法作用域的意思是符号的作用域和源代码的书写位置（词法）相关。
+
+一个变量的变换过程
+
+词法符号 -> ASTNode -> 三地址代码中的地址 -> 运行时环境的操作数
+
+### 符号表（Symbol Table）
+
+符号表用于存储符号 Symbol （常量、变量、标签）在源代码中的位置、数据类型，以及位置信息决定的词法作用域和运行时的相对内存地址。
+
+#### 静态符号表
+
+静态符号表用哈希表实现，存储常量在常量区的位置
+
+#### 符号表
+
+符号表用 树 + 哈希表 实现，存储每个符号的词法作用域，以及它在词法作用域的相对位置。
+
+![](https://tva1.sinaimg.cn/large/008i3skNgy1gx5ilbumjnj30a3088mxc.jpg)
+
+
+
+
+
+![](https://tva1.sinaimg.cn/large/008i3skNgy1gx5ilcb17lj30bb06cglo.jpg)
+
+
+
+
+
+![](https://tva1.sinaimg.cn/large/008i3skNgy1gx5ilb8hfkj308m06rjrg.jpg)
+
